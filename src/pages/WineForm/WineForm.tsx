@@ -140,11 +140,11 @@ function WineForm() {
                 <footer>
                     <p>
                         <img src={warningIcon} alt="Aviso Importante" />
-                        Importante! <br />
-                        Preencha todos os dados
+                        Important! <br />
+                        Fill in all data
                     </p>
                     <button type='submit' onClick={handleCreateStack}>
-                        Salvar Cadastro
+                        Save Wine
                     </button>
                 </footer>
             </main>

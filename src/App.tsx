@@ -1,12 +1,12 @@
 import React from 'react';
 import './assets/styles/global.css'
-import Landing from './pages/Landing/Landing'
-import WineForm from './pages/WineForm/WineForm'
+
+import Routes from './routes'
 
 function App() {
   return (
     <div className="App">
-      <WineForm />
+      <Routes />
     </div>
   );
 }

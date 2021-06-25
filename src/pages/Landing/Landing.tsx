@@ -1,8 +1,11 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom'
+
 import './styles.css'
 
 import LandingImage from '../../assets/images/logo.png'
+import WineImage from '../../assets/images/icons/wine.png'
 
 function Landing() {
 
@@ -20,6 +23,19 @@ function Landing() {
                     alt="Landing-image"
                     className='hero-image'
                 />
+
+                <div className="buttons-container">
+                    <Link to='/wineForm' className='get-tips'>
+                        <img src={WineImage} alt="developer-icon" />
+                        Add a new Wine
+                    </Link>
+
+                    <Link to='/landing-login-dev' className='give-tips'>
+                        <img src={''} alt="teacher-icon" />
+                        Dar Dicas
+                    </Link>
+                </div>
+
             </div>
         </div>
     )
