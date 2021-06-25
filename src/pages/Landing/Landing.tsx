@@ -20,7 +20,6 @@ function Landing() {
                     alt="Landing-image"
                     className='hero-image'
                 />
-
             </div>
         </div>
     )
