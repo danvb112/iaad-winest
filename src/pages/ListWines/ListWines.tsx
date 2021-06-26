@@ -4,7 +4,6 @@ import { Link, useParams } from 'react-router-dom'
 import { FiPlus, FiX, FiEdit } from 'react-icons/fi'
 
 import PageHeader from '../../components/PageHeader'
-import WineForm from '../WineForm/WineForm'
 
 import './styles.css'
 
@@ -62,13 +61,17 @@ function ListWines() {
 
 
 
-    async function loadTips() {
+    async function loadWines() {
         // const response = await api.get(`/devs/${params.id}`)
         // setDevTips(response.data)
         // return response
     }
 
     async function handleDeleteWine(id: number) {
+
+    }
+
+    async function handleEditWine(id: number) {
 
     }
 
@@ -134,7 +137,7 @@ function ListWines() {
                                 <button type='submit' onClick={() => handleDeleteWine(wine.id)}>
                                     <FiX size="32" color="#ff1744" />
                                 </button>
-                                <button type='submit' onClick={() => handleDeleteWine(wine.id)}>
+                                <button type='submit' onClick={() => handleEditWine(wine.id)}>
                                     <FiEdit size="32" color="#FFFFFF" />
                                 </button>
                             </footer>
