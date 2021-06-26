@@ -44,34 +44,8 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
     const [tasterName, setTasterName] = useState(pros.taster_name)
     const [tasterTwitter, setTasterTwitter] = useState(pros.taster_name)
 
-    const [scheduleItems, setScheduleItems] = useState([
-        { week_day: 0, from: '', to: '' }
-    ]);
 
-
-    function addNewScheduleItem() {
-        setScheduleItems([
-            ...scheduleItems,
-            { week_day: 0, from: '', to: '' }
-        ]);
-    }
-
-    function handleCreateStack() { }
-
-
-    function setScheduleItemValue(position: number, field: string, value: string) {
-        const updateScheduleItems = scheduleItems.map((scheduleItem, index) => {
-            if (index === position) {
-                return { ...scheduleItem, [field]: value }
-            }
-
-            return scheduleItem;
-        })
-
-        setScheduleItems(updateScheduleItems);
-
-    }
-
+    function handleEditStack() { }
 
     return (
         <div id="page-dev-form" className="container">
@@ -192,7 +166,7 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
                         Important! <br />
                         Fill in all data
                     </p>
-                    <button type='submit' onClick={handleCreateStack}>
+                    <button type='submit' onClick={handleEditStack}>
                         Save Wine
                     </button>
                 </footer>

@@ -66,7 +66,8 @@ function ListWines() {
     }
 
     async function handleDeleteWine(id: number) {
-
+        const response = await api.delete(`/wines/${id}`);
+        console.log(response)
     }
 
     async function handleEditWine(id: number) {
