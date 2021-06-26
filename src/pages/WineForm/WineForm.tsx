@@ -21,6 +21,9 @@ function WineForm() {
     const [price, setPrice] = useState('')
     const [province, setProvince] = useState('')
     const [region, setRegion] = useState('')
+    const [region2, setRegion2] = useState('')
+    const [variety, setVariety] = useState('')
+    const [winery, setWinery] = useState('')
     const [tasterName, setTasterNamen] = useState('')
 
     const [scheduleItems, setScheduleItems] = useState([
@@ -57,7 +60,7 @@ function WineForm() {
             <PageHeader
                 title='How nice you want to add a wine'
                 description='First step is to fill out this form.'
-                backTo='/landing-login-dev'
+                backTo='/'
             />
 
             <main>
@@ -126,6 +129,27 @@ function WineForm() {
                         type='text'
                         value={region}
                         onChange={(e) => { setRegion(e.target.value) }}
+                    />
+                    <Input
+                        label='Region 2'
+                        name='region2'
+                        type='text'
+                        value={region2}
+                        onChange={(e) => { setRegion2(e.target.value) }}
+                    />
+                    <Input
+                        label='Variety'
+                        name='variety'
+                        type='text'
+                        value={variety}
+                        onChange={(e) => { setVariety(e.target.value) }}
+                    />
+                    <Input
+                        label='Winery'
+                        name='winery'
+                        type='text'
+                        value={winery}
+                        onChange={(e) => { setWinery(e.target.value) }}
                     />
                     <Input
                         label='Taster Name'

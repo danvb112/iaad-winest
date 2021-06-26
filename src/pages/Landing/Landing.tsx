@@ -6,6 +6,7 @@ import './styles.css'
 
 import LandingImage from '../../assets/images/logo.png'
 import WineImage from '../../assets/images/icons/wine.png'
+import WineAndBottle from '../../assets/images/icons/glass-and-bottle-of-wine.png'
 
 function Landing() {
 
@@ -30,9 +31,9 @@ function Landing() {
                         Add a new Wine
                     </Link>
 
-                    <Link to='/landing-login-dev' className='give-tips'>
-                        <img src={''} alt="teacher-icon" />
-                        Dar Dicas
+                    <Link to='/list-wine' className='give-tips'>
+                        <img src={WineAndBottle} alt="teacher-icon" />
+                        List wines
                     </Link>
                 </div>
 
