@@ -6,6 +6,7 @@ import { FiPlus, FiX, FiEdit } from 'react-icons/fi'
 import PageHeader from '../../components/PageHeader'
 
 import './styles.css'
+import api from '../../server/api'
 
 
 interface DevParams {
@@ -50,21 +51,18 @@ function ListWines() {
         }
     ]
 
-    //const [wineList, setWineList] = useState<any>([])
+    const [wineList, setWineList] = useState<any>([])
 
-    const wineList = data;
 
     console.log(wineList);
 
 
-    //const [devTips, setDevTips] = useState<DevTip[]>([])
-
-
-
     async function loadWines() {
-        // const response = await api.get(`/devs/${params.id}`)
-        // setDevTips(response.data)
-        // return response
+        const response = await api.get('/wines');
+        console.log(response)
+        const { data } = response.data
+        console.log(data);
+        setWineList(data)
     }
 
     async function handleDeleteWine(id: number) {
@@ -76,9 +74,9 @@ function ListWines() {
     }
 
 
-    // useEffect(() => {
-    //     loadTips()
-    // }, [wineList])
+    useEffect(() => {
+        loadWines()
+    }, [wineList])
 
 
 

@@ -1,7 +1,10 @@
 import React, { FormEvent, useState } from 'react';
+import { Link } from 'react-router-dom'
 import PageHeader from '../../components/PageHeader';
 import Input from '../../components/Input'
 import TextArea from '../../components/TextArea'
+
+import api from '../../server/api'
 
 import warningIcon from '../../assets/images/icons/warning.svg'
 
@@ -13,46 +16,50 @@ import { useHistory } from 'react-router-dom';
 function WineForm() {
 
     const history = useHistory()
-    const [wineName, setWineName] = useState('')
+    const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [country, setCountry] = useState('')
     const [designation, setDesignation] = useState('')
     const [points, setPoints] = useState('')
     const [price, setPrice] = useState('')
     const [province, setProvince] = useState('')
-    const [region, setRegion] = useState('')
+    const [region1, setRegion1] = useState('')
     const [region2, setRegion2] = useState('')
     const [variety, setVariety] = useState('')
     const [winery, setWinery] = useState('')
-    const [tasterName, setTasterNamen] = useState('')
-
-    const [scheduleItems, setScheduleItems] = useState([
-        { week_day: 0, from: '', to: '' }
-    ]);
+    const [tasterName, setTasterName] = useState('')
+    const [tasterTwitter, setTasterTwitter] = useState('')
 
 
-    function addNewScheduleItem() {
-        setScheduleItems([
-            ...scheduleItems,
-            { week_day: 0, from: '', to: '' }
-        ]);
+
+    async function handleCreateWine() {
+        const response = await api.post('/wines', {
+            id: 4,
+            title,
+            description,
+            country,
+            designation,
+            points,
+            price,
+            province,
+            region1,
+            region2,
+            variety,
+            winery,
+            "taster_name": tasterName,
+            "taster_twitter": tasterTwitter
+        });
+
+        if (response.status == 200) {
+            history.push('/list-wine');
+        } else {
+            alert("Error")
+            console.error(response);
+        }
+        console.log(response.status);
+        console.log(response.data);
     }
 
-    function handleCreateStack() { }
-
-
-    function setScheduleItemValue(position: number, field: string, value: string) {
-        const updateScheduleItems = scheduleItems.map((scheduleItem, index) => {
-            if (index === position) {
-                return { ...scheduleItem, [field]: value }
-            }
-
-            return scheduleItem;
-        })
-
-        setScheduleItems(updateScheduleItems);
-
-    }
 
 
     return (
@@ -71,8 +78,8 @@ function WineForm() {
                         label='Wine Name'
                         name='name'
                         type='text'
-                        value={wineName}
-                        onChange={(e) => { setWineName(e.target.value) }}
+                        value={title}
+                        onChange={(e) => { setTitle(e.target.value) }}
 
                     />
 
@@ -127,8 +134,8 @@ function WineForm() {
                         label='Region'
                         name='region'
                         type='text'
-                        value={region}
-                        onChange={(e) => { setRegion(e.target.value) }}
+                        value={region1}
+                        onChange={(e) => { setRegion1(e.target.value) }}
                     />
                     <Input
                         label='Region 2'
@@ -156,7 +163,14 @@ function WineForm() {
                         name='taster_name'
                         type='text'
                         value={tasterName}
-                        onChange={(e) => { setTasterNamen(e.target.value) }}
+                        onChange={(e) => { setTasterName(e.target.value) }}
+                    />
+                    <Input
+                        label='Taster Twitter'
+                        name='taster_twitter'
+                        type='text'
+                        value={tasterTwitter}
+                        onChange={(e) => { setTasterTwitter(e.target.value) }}
                     />
 
                 </fieldset>
@@ -167,7 +181,7 @@ function WineForm() {
                         Important! <br />
                         Fill in all data
                     </p>
-                    <button type='submit' onClick={handleCreateStack}>
+                    <button type='submit' onClick={handleCreateWine}>
                         Save Wine
                     </button>
                 </footer>
