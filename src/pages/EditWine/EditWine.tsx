@@ -107,6 +107,11 @@ function EditWine() {
 
     return (
         <div id="page-dev-form" className="container">
+            <PageHeader
+                title='How nice you want to Edit a wine'
+                description='First and unic step is to fill out this form.'
+                backTo='/'
+            />
             <main>
                 <fieldset>
                     <legend>Wine wine dice</legend>
