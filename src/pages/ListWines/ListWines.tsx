@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 
 import { FiPlus, FiX, FiEdit } from 'react-icons/fi'
 
@@ -34,7 +34,7 @@ function ListWines() {
 
     const data = [
         {
-            "id": 0,
+            "id": 1,
             "title": "Nicosia 2013 Vulkà Bianco",
             "points": 87,
             "price": 43,
@@ -52,28 +52,23 @@ function ListWines() {
     ]
 
     const [wineList, setWineList] = useState<any>([])
-
-
-    console.log(wineList);
-
+    const history = useHistory()
 
     async function loadWines() {
-        const response = await api.get('/wines');
-        console.log(response)
-        const { data } = response.data
-        console.log(data);
+        // const response = await api.get('/wines');
+        // console.log(response)
+        // const { data } = response.data
+        // console.log(data);
         setWineList(data)
     }
 
     async function handleDeleteWine(id: number) {
         const response = await api.delete(`/wines/${id}`);
-        console.log(response)
     }
 
     async function handleEditWine(id: number) {
-
+        history.push(`/edit-wine/${id}`)
     }
-
 
     useEffect(() => {
         loadWines()
@@ -85,8 +80,6 @@ function ListWines() {
         return <p>Carregando...</p>
     }
 
-    console.log(wineList)
-
     return (
         <div id="page-dev" className="container">
             <PageHeader
@@ -94,7 +87,6 @@ function ListWines() {
                 description='Here you can find more information on wines'
                 backTo='/'
             />
-
             <main>
                 {wineList.map((wine: any) => {
                     return (

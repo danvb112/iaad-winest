@@ -8,53 +8,105 @@ import warningIcon from '../../assets/images/icons/warning.svg'
 // import api from '../../server/api'
 
 import './styles.css'
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import api from '../../server/api';
 
-interface EditWineProps {
-    id: number;
-    title: string,
-    points: number,
-    price: number,
-    country: string,
-    province: string,
-    region1: string,
-    region2: string,
-    description: string,
-    designation: string,
-    variety: string,
-    winery: string,
-    taster_name: string,
-    taster_twitter: string,
+interface EditWineParams {
+    id: string;
 }
 
-const EditWine: React.FC<EditWineProps> = (pros) => {
+function EditWine() {
 
+    const params = useParams<EditWineParams>()
     const history = useHistory()
-    const [title, setTitle] = useState(pros.title)
-    const [description, setDescription] = useState(pros.description)
-    const [country, setCountry] = useState(pros.country)
-    const [designation, setDesignation] = useState(pros.designation)
-    const [points, setPoints] = useState(pros.points)
-    const [price, setPrice] = useState(pros.price)
-    const [province, setProvince] = useState(pros.province)
-    const [region1, setRegion1] = useState(pros.region1)
-    const [region2, setRegion2] = useState(pros.region2)
-    const [variety, setVariety] = useState(pros.variety)
-    const [winery, setWinery] = useState(pros.winery)
-    const [tasterName, setTasterName] = useState(pros.taster_name)
-    const [tasterTwitter, setTasterTwitter] = useState(pros.taster_name)
+
+    const [id, setId] = useState('')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [country, setCountry] = useState('')
+    const [designation, setDesignation] = useState('')
+    const [points, setPoints] = useState(0)
+    const [price, setPrice] = useState(0)
+    const [province, setProvince] = useState('')
+    const [region1, setRegion1] = useState('')
+    const [region2, setRegion2] = useState('')
+    const [variety, setVariety] = useState('')
+    const [winery, setWinery] = useState('')
+    const [tasterName, setTasterName] = useState('')
+    const [tasterTwitter, setTasterTwitter] = useState('')
 
 
-    function handleEditStack() { }
+    const data = [
+        {
+            "id": 1,
+            "title": "Nicosia 2013 Vulkà Bianco",
+            "points": 87,
+            "price": 43,
+            "country": "Italy",
+            "province": "Sicily & Sardinia",
+            "region1": "Etna",
+            "region2": "null",
+            "description": "Aromas include tropical fruit, broom, brimstone and dried herb. The palate isn't overly expressive",
+            "designation": "Vulkà Bianco",
+            "variety": "White Blend",
+            "winery": "Nicosia",
+            "taster_name": "Kerin O’Keefe",
+            "taster_twitter": "@kerinokeefe"
+        }
+    ]
+
+
+    function getWine() {
+        console.log(params)
+        setId(params.id)
+        setTitle(data[0]['title'])
+        setPoints(data[0]['points'])
+        setPrice(data[0]['price'])
+        setDescription(data[0]['description'])
+        setCountry(data[0]['country'])
+        setProvince(data[0]['province'])
+        setRegion1(data[0]['region1'])
+        setRegion2(data[0]['region2'])
+        setDesignation(data[0]['designation'])
+        setVariety(data[0]['variety'])
+        setWinery(data[0]['winery'])
+        setTasterName(data[0]['taster_name'])
+        setTasterTwitter(data[0]['taster_twitter'])
+    }
+
+    async function handleEditStack(id: string) {
+        const response = await api.put(`/wines/:${id}`, {
+            id,
+            title,
+            description,
+            country,
+            designation,
+            points,
+            price,
+            province,
+            region1,
+            region2,
+            variety,
+            winery,
+            "taster_name": tasterName,
+            "taster_twitter": tasterTwitter
+        })
+        if (response.status == 200) {
+            history.push('/list-wine')
+        } else {
+            alert("Error!");
+            console.error();
+        }
+
+    }
+
+    useEffect(() => {
+        getWine()
+    }, [params])
 
     return (
         <div id="page-dev-form" className="container">
-            <PageHeader
-                title='How nice you want to add a wine'
-                description='First step is to fill out this form.'
-                backTo='/'
-            />
-
             <main>
                 <fieldset>
                     <legend>Wine wine dice</legend>
@@ -65,7 +117,6 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
                         type='text'
                         value={title}
                         onChange={(e) => { setTitle(e.target.value) }}
-
                     />
 
                     <TextArea
@@ -122,6 +173,7 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
                         value={region1}
                         onChange={(e) => { setRegion1(e.target.value) }}
                     />
+
                     <Input
                         label='Region 2'
                         name='region2'
@@ -129,6 +181,7 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
                         value={region2}
                         onChange={(e) => { setRegion2(e.target.value) }}
                     />
+
                     <Input
                         label='Variety'
                         name='variety'
@@ -136,6 +189,7 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
                         value={variety}
                         onChange={(e) => { setVariety(e.target.value) }}
                     />
+
                     <Input
                         label='Winery'
                         name='winery'
@@ -143,6 +197,7 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
                         value={winery}
                         onChange={(e) => { setWinery(e.target.value) }}
                     />
+
                     <Input
                         label='Taster Name'
                         name='taster_name'
@@ -150,6 +205,7 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
                         value={tasterName}
                         onChange={(e) => { setTasterName(e.target.value) }}
                     />
+
                     <Input
                         label='Taster Twitter'
                         name='taster_twitter'
@@ -166,7 +222,7 @@ const EditWine: React.FC<EditWineProps> = (pros) => {
                         Important! <br />
                         Fill in all data
                     </p>
-                    <button type='submit' onClick={handleEditStack}>
+                    <button type='submit' onClick={() => handleEditStack(params.id)}>
                         Save Wine
                     </button>
                 </footer>

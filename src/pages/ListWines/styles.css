@@ -286,6 +286,12 @@
     background: var(--color-secundary-dark);
 }
 
+.edit-wine-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 @media (min-width: 700px) {
     .Dev-tip header,

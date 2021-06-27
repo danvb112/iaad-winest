@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'https://winest-api.herokuapp.com'
+    baseURL: 'https://localhost:7436'
 })
 
 export default api;
