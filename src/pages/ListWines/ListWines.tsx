@@ -51,6 +51,7 @@ function ListWines() {
     //     }
     // ]
     const [qtd, setQtd] = useState<any>(0)
+    const [grapesQtd, setGrapesQtd] = useState<any>(0)
     const [wineList, setWineList] = useState<any>([])
     const history = useHistory()
 
@@ -65,6 +66,8 @@ function ListWines() {
     async function handleDeleteWine(id: number) {
         const response = await api.delete(`/wines/${id}`);
         loadWines()
+        loadQtdOfWines()
+        loadGrapesQtd()
     }
 
     async function handleEditWine(id: number) {
@@ -81,10 +84,28 @@ function ListWines() {
 
     }
 
+    async function loadGrapesQtd(){
+        try {
+            const {data} = await api.get('/qtd-per-grape');
+            console.log(data.data)
+            // setGrapesQtd(data.data)
+        } catch (error) {  
+            console.log(error)
+        }
+
+    }
+
     useEffect(() => {
-        loadWines()
+        loadWines() 
+    }, [])
+
+    useEffect(()=>{
         loadQtdOfWines()
-    }, [wineList])
+    }, [])
+
+    useEffect(()=>{
+        loadGrapesQtd()
+    }, [])
 
 
 
@@ -100,6 +121,7 @@ function ListWines() {
                 backTo='/'
             />
             <h1>Quantity of wines: {qtd}</h1>
+            <h2></h2>
             <main>
                 {wineList.map((wine: any) => {
                     return (
@@ -110,6 +132,7 @@ function ListWines() {
                                     <strong>{wine.title}</strong>
                                     <span>Winery: {wine.winery}</span>
                                     <span>Designation: {wine.designation}</span>
+                                    <span>Variety: {wine.variety}</span>
                                 </div>
                             </header>
 

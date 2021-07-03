@@ -36,7 +36,6 @@ function WineForm() {
     async function handleCreateWine() {
         try {
             const response = await api.post('/wines', {
-            id: 2,
             title,
             description,
             country,
@@ -51,7 +50,7 @@ function WineForm() {
             "taster_name": tasterName,
             "taster_twitter": tasterTwitter
         });
-        
+
             history.push('/list-wine');
         
             console.log(response)
