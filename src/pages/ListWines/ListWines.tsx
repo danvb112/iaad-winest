@@ -50,7 +50,7 @@ function ListWines() {
     //         "taster_twitter": "@kerinokeefe"
     //     }
     // ]
-
+    const [qtd, setQtd] = useState<any>(0)
     const [wineList, setWineList] = useState<any>([])
     const history = useHistory()
 
@@ -71,9 +71,20 @@ function ListWines() {
         history.push(`/edit-wine/${id}`)
     }
 
+    async function loadQtdOfWines(){
+        try {
+            const {data} = await api.get('/qtd-wines');
+            setQtd(data.data[0]['count(*)']);
+        } catch (error) {  
+            alert('erro')
+        }
+
+    }
+
     useEffect(() => {
         loadWines()
-    }, [])
+        loadQtdOfWines()
+    }, [wineList])
 
 
 
@@ -88,6 +99,7 @@ function ListWines() {
                 description='Here you can find more information on wines'
                 backTo='/'
             />
+            <h1>Quantity of wines: {qtd}</h1>
             <main>
                 {wineList.map((wine: any) => {
                     return (
