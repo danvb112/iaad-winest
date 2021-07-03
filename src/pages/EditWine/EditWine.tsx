@@ -37,68 +37,86 @@ function EditWine() {
     const [tasterTwitter, setTasterTwitter] = useState('')
 
 
-    const data = [
-        {
-            "id": 1,
-            "title": "Nicosia 2013 Vulkà Bianco",
-            "points": 87,
-            "price": 43,
-            "country": "Italy",
-            "province": "Sicily & Sardinia",
-            "region1": "Etna",
-            "region2": "null",
-            "description": "Aromas include tropical fruit, broom, brimstone and dried herb. The palate isn't overly expressive",
-            "designation": "Vulkà Bianco",
-            "variety": "White Blend",
-            "winery": "Nicosia",
-            "taster_name": "Kerin O’Keefe",
-            "taster_twitter": "@kerinokeefe"
+    // const data = [
+    //     {
+    //         "id": 1,
+    //         "title": "Nicosia 2013 Vulkà Bianco",
+    //         "points": 87,
+    //         "price": 43,
+    //         "country": "Italy",
+    //         "province": "Sicily & Sardinia",
+    //         "region1": "Etna",
+    //         "region2": "null",
+    //         "description": "Aromas include tropical fruit, broom, brimstone and dried herb. The palate isn't overly expressive",
+    //         "designation": "Vulkà Bianco",
+    //         "variety": "White Blend",
+    //         "winery": "Nicosia",
+    //         "taster_name": "Kerin O’Keefe",
+    //         "taster_twitter": "@kerinokeefe"
+    //     }
+    // ]
+
+
+    async function getWine() {
+        console.log(params);
+        setId(params.id);
+
+        try {
+            const response = await api.get(`/wines/${params.id}`);
+            const {data} = response;
+            console.log(data.data[0]);
+
+            setTitle(data.data[0]['title'])
+            setPoints(data.data[0]['points'])
+            setPrice(data.data[0]['price'])
+            setDescription(data.data[0]['description'])
+            setCountry(data.data[0]['country'])
+            setProvince(data.data[0]['province'])
+            setRegion1(data.data[0]['region1'])
+            setRegion2(data.data[0]['region2'])
+            setDesignation(data.data[0]['designation'])
+            setVariety(data.data[0]['variety'])
+            setWinery(data.data[0]['winery'])
+            setTasterName(data.data[0]['taster_name'])
+            setTasterTwitter(data.data[0]['taster_twitter'])
+        } catch (error) {
+            console.error(error);
         }
-    ]
 
 
-    function getWine() {
-        console.log(params)
-        setId(params.id)
-        setTitle(data[0]['title'])
-        setPoints(data[0]['points'])
-        setPrice(data[0]['price'])
-        setDescription(data[0]['description'])
-        setCountry(data[0]['country'])
-        setProvince(data[0]['province'])
-        setRegion1(data[0]['region1'])
-        setRegion2(data[0]['region2'])
-        setDesignation(data[0]['designation'])
-        setVariety(data[0]['variety'])
-        setWinery(data[0]['winery'])
-        setTasterName(data[0]['taster_name'])
-        setTasterTwitter(data[0]['taster_twitter'])
     }
 
     async function handleEditStack(id: string) {
-        const response = await api.put(`/wines/:${id}`, {
-            id,
-            title,
-            description,
-            country,
-            designation,
-            points,
-            price,
-            province,
-            region1,
-            region2,
-            variety,
-            winery,
-            "taster_name": tasterName,
-            "taster_twitter": tasterTwitter
-        })
-        if (response.status == 200) {
-            history.push('/list-wine')
-        } else {
-            alert("Error!");
-            console.error();
-        }
+            console.log(title)
+            try {
+                const response = await api.put(`/wines/${id}`, {
+                    title,
+                    description,
+                    country,
+                    designation,
+                    points,
+                    price,
+                    province,
+                    region1,
+                    region2,
+                    variety,
+                    winery,
+                    "taster_name": tasterName,
+                    "taster_twitter": tasterTwitter
+                })
 
+                console.log('update');
+                console.log(response);
+                history.push('/list-wine');
+            } catch (error) {
+                alert("Error!");
+            console.error();
+            }        
+ 
+            
+   
+            
+        
     }
 
     useEffect(() => {

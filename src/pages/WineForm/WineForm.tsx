@@ -12,6 +12,7 @@ import warningIcon from '../../assets/images/icons/warning.svg'
 
 import './styles.css'
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 function WineForm() {
 
@@ -33,14 +34,15 @@ function WineForm() {
 
 
     async function handleCreateWine() {
-        const response = await api.post('/wines', {
-            id: 10,
+        try {
+            const response = await api.post('/wines', {
+            id: 2,
             title,
             description,
             country,
             designation,
-            points,
-            price,
+            points: parseInt(points),
+            price: parseInt(price),
             province,
             region1,
             region2,
@@ -49,15 +51,15 @@ function WineForm() {
             "taster_name": tasterName,
             "taster_twitter": tasterTwitter
         });
-
-        if (response.status === 200) {
+        
             history.push('/list-wine');
-        } else {
+        
+            console.log(response)
+        } catch (error) {
             alert("Error")
-            console.error(response);
+            console.error(error);
         }
-        console.log(response.status);
-        console.log(response.data);
+
     }
 
 

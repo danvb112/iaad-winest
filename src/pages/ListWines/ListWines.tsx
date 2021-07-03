@@ -32,38 +32,39 @@ interface DevParams {
 
 function ListWines() {
 
-    const data = [
-        {
-            "id": 1,
-            "title": "Nicosia 2013 Vulkà Bianco",
-            "points": 87,
-            "price": 43,
-            "country": "Italy",
-            "province": "Sicily & Sardinia",
-            "region1": "Etna",
-            "region2": null,
-            "description": "Aromas include tropical fruit, broom, brimstone and dried herb. The palate isn't overly expressive",
-            "designation": "Vulkà Bianco",
-            "variety": "White Blend",
-            "winery": "Nicosia",
-            "taster_name": "Kerin O’Keefe",
-            "taster_twitter": "@kerinokeefe"
-        }
-    ]
+    // const data = [
+    //     {
+    //         "id": 1,
+    //         "title": "Nicosia 2013 Vulkà Bianco",
+    //         "points": 87,
+    //         "price": 43,
+    //         "country": "Italy",
+    //         "province": "Sicily & Sardinia",
+    //         "region1": "Etna",
+    //         "region2": null,
+    //         "description": "Aromas include tropical fruit, broom, brimstone and dried herb. The palate isn't overly expressive",
+    //         "designation": "Vulkà Bianco",
+    //         "variety": "White Blend",
+    //         "winery": "Nicosia",
+    //         "taster_name": "Kerin O’Keefe",
+    //         "taster_twitter": "@kerinokeefe"
+    //     }
+    // ]
 
     const [wineList, setWineList] = useState<any>([])
     const history = useHistory()
 
     async function loadWines() {
-        // const response = await api.get('/wines');
+        const response = await api.get('/wines');
         // console.log(response)
-        // const { data } = response.data
+        const { data } = response.data
         // console.log(data);
         setWineList(data)
     }
 
     async function handleDeleteWine(id: number) {
         const response = await api.delete(`/wines/${id}`);
+        loadWines()
     }
 
     async function handleEditWine(id: number) {
@@ -72,7 +73,7 @@ function ListWines() {
 
     useEffect(() => {
         loadWines()
-    }, [wineList])
+    }, [])
 
 
 
