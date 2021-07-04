@@ -51,7 +51,11 @@ function ListWines() {
     //     }
     // ]
     const [qtd, setQtd] = useState<any>(0)
-    const [grapesQtd, setGrapesQtd] = useState<any>(0)
+    const [grapesQtd, setGrapesQtd] = useState<any>([{
+  
+      },
+      {
+      }])
     const [wineList, setWineList] = useState<any>([])
     const history = useHistory()
 
@@ -87,8 +91,8 @@ function ListWines() {
     async function loadGrapesQtd(){
         try {
             const {data} = await api.get('/qtd-per-grape');
-            console.log(data.data)
-            // setGrapesQtd(data.data)
+            console.log(data.data[1])
+            setGrapesQtd(data.data)
         } catch (error) {  
             console.log(error)
         }
@@ -121,7 +125,12 @@ function ListWines() {
                 backTo='/'
             />
             <h1>Quantity of wines: {qtd}</h1>
-            <h2></h2>
+            <h1>Quantity of wines per kind of grape: </h1>
+
+            {grapesQtd.map((value: any) => {
+                return <h2>{value['variety']}: {value['quantity']}</h2>                
+                        })}
+
             <main>
                 {wineList.map((wine: any) => {
                     return (
@@ -140,9 +149,11 @@ function ListWines() {
 
                             <footer>
                                 <p>
-                                    Price: <strong>{wine.price}</strong>
+                                <strong>   Price: {wine.price}</strong>
                                     <br />
-                                    Points: <strong>{wine.points}</strong>
+                                    <strong> Points: {wine.points}</strong>
+                                    <br />
+                                    <strong>Price with discount: {wine['price_descount']}</strong>
                                 </p>
                                 <p>
                                 </p>
