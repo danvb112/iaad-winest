@@ -124,12 +124,15 @@ function ListWines() {
                 description='Here you can find more information on wines'
                 backTo='/'
             />
-            <h1>Quantity of wines: {qtd}</h1>
+            <div className="agg-func">
+
+            <h1>Quantity of wines: {qtd}</h1> 
             <h1>Quantity of wines per kind of grape: </h1>
 
             {grapesQtd.map((value: any) => {
-                return <h2>{value['variety']}: {value['quantity']}</h2>                
+                return <h2>{value['variety']}: {value['quantity']}</h2>           
                         })}
+            </div>
 
             <main>
                 {wineList.map((wine: any) => {
